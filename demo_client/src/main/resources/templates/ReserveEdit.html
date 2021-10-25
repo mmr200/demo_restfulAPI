@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head_fragment(title = '予約情報', scripts = ~{::script}, links = ~{::link})"></head>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+
+<body>
+  <div class="container">
+    <h1>予約情報登録</h1>
+    ★以下の内容で登録します。
+    <form method="POST" th:action="@{/reserve/update}" th:object="${reserveData}">
+        <table class="table.border">
+            <tr>
+              <td align="left" valign="top">ユーザー名：</td>
+              <td>
+                <select id="userlist" name="userId" class="form-select">
+                  <option value=""></option>
+                  <option th:each="user : ${userlist}" th:value="${user.userId}" th:text="${user.userName}" 
+                    th:selected="${user.userId == reserveData.userId}">singleSelect</option>
+               </select>
+              </td>
+            </tr>
+            
+            <tr th:each="items, stat : *{reserveDetailList}">
+              <td align="left" valign="top">商品：</td>
+              
+              <td>
+                 <select class="form-select" th:field="*{reserveDetailList[__${stat.index}__].itemId}" >
+                  <option th:each="item : ${selectItems}" th:value="${item.itemId}" th:text="${item.itemName}"
+                    th:selected="${item.itemId} == *{reserveDetailList[__${stat.index}__].itemId}">singleSelect</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-select" th:field="*{reserveDetailList[__${stat.index}__].quantity}" >
+                    <option th:each="i : ${#numbers.sequence(1, 9)}" th:value="${i}" th:text="${i}"
+                    th:selected="${i == items.quantity}">
+                    </option>
+                </select>
+              </td>
+               
+               <td style='display:none;'>
+                   <input type="hidden" th:field="*{reserveDetailList[__${stat.index}__].reserveId}"/>
+                   <input type="hidden" th:field="*{reserveDetailList[__${stat.index}__].reserveSubId}"/>
+               </td>
+               <td>
+                  <button type="submit" name="add">＋</button>
+                  <button type="submit" name="remove" th:value="${stat.index}">－</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>配達日</td>
+              <td><input type="date"  th:field="${reserveData.deliveryDate}" name="deliveryDate"></td>
+            </tr>
+        </table>
+        <input type="hidden" value="PUT" name="_method" >
+        <input type="submit" value="更新" name="update"/>
+        <input type="hidden" th:value="${reserveData.reserveId}" name="reserveId">
+    </form>
+  </div>
+</body>
+</html>

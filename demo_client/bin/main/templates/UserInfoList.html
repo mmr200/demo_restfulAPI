@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head_fragment(title = 'ユーザー情報', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <div class="container">
+    <h1>ユーザー情報一覧</h1>
+    <div class="float-end">
+      <a th:href="@{/user/createEdit}" class="btn btn-primary">新規登録はこちら</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>名前</th>
+          <th>E-MAIL</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="user_info : ${userlist}" th:object="${user_info}" class="align-middle">
+          <td th:text="*{userId}"></td>
+          <td th:text="*{userName}"></td>
+          <td th:text="*{email}"></td>
+          <td>
+            <form action="/user/edit" method="GET">
+              <button type="submit" name="userId" th:value="*{userId}" class="btn btn-secondary">編集</button>
+            </form>
+           </td>
+           <td>
+            <form action="/user/delete" method="POST">
+               <input name="_method" type="hidden" value="DELETE">
+               <button type="submit" name="userId" th:value="*{userId}" class="btn btn-secondary">削除</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head_fragment(title = '商品情報', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <div class="container">
+    <h1>商品情報更新</h1>
+    ★以下の内容で更新します。
+    <form method="POST" th:action="@{/item/update}">
+    <table border="0">
+        <tr>
+            <td align="left" valign="top">ID：</td>
+            <td><input type="text" th:field="${itemData.itemId}" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">商品名：</td>
+            <td><input type="text" th:field="${itemData.item_name}"></td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">金額：</td>
+            <td><input type="text" th:field="${itemData.price}"></td>
+        </tr>
+    </table>
+    <input name="_method" type="hidden" value="PUT">
+    <input type="submit" value="更新"/>
+    </form>
+  </div>
+</body>
+</html>

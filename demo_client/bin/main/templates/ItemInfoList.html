@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head_fragment(title = '商品情報', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <div class="container">
+    <h1>商品情報一覧</h1>
+    <div class="float-end">
+      <a th:href="@{/item/createEdit}" class="btn btn-primary">新規登録はこちら</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>商品名</th>
+          <th>金額</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item_info : ${itemList}" th:object="${item_info}" class="align-middle">
+          <td th:text="*{itemId}"></td>
+          <td th:text="*{item_name}"></td>
+          <td th:text="*{price}"></td>
+          <td>
+            <form action="/item/edit" method="GET">
+              <button type="submit" name="itemId" th:value="*{itemId}" class="btn btn-secondary">編集</button>
+            </form>
+           </td>
+           <td>
+            <form action="/item/delete" method="POST">
+               <input name="_method" type="hidden" value="DELETE">
+               <button type="submit" name="itemId" th:value="*{itemId}" class="btn btn-secondary">削除</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

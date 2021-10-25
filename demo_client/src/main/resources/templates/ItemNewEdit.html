@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head_fragment(title = '商品情報', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <div class="container">
+    <h1>商品情報登録</h1>
+    ★以下の内容で登録します。
+	<form method="POST" th:action="@{/item/create}">
+	    <table class="table.border">
+	        <tr>
+	            <td align="left" valign="top">商品名：</td>
+	            <td><input type="text" name="item_name"></td>
+	        </tr>
+	        <tr>
+	            <td align="left" valign="top">金額：</td>
+	            <td><input type="text" name="price"></td>
+	        </tr>
+	    </table>
+	    <input name="_method" type="hidden" value="PUT">
+	    <input type="submit" value="登録" />
+    </form>
+  </div>
+</body>
+</html>

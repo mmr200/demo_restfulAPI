@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head_fragment(title = 'ユーザー情報', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <div class="container">
+    <h1>ユーザー情報一覧</h1>
+    <div class="float-end">
+      <a th:href="@{/user/createEdit}" class="btn btn-primary">新規登録はこちら</a>
+    </div>
+    ★以下に検索されたデータが表示されます
+    <table border="0">
+        <tr>
+            <td align="left" valign="top">ID：</td>
+            <td th:text="${userData.userId}"></td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">名前：</td>
+            <td th:text="${userData.userName}"></td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">E-Mail：</td>
+            <td th:text="${userData.email}"></td>
+        </tr>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# ポート番号：8084で起動
+server:
+  port: 8084
+spring.mvc.hiddenmethod.filter.enabled: true
+spring.webflux.hiddenmethod.filter.enabled: true
